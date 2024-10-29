@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mct:Popup
+    x:Class="GamesMauiHybrid.Components.Pages.PopUpAlertPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+    CanBeDismissedByTappingOutsideOfPopup="False"
+    HorizontalOptions="Center"
+    VerticalOptions="Center">
+    <VerticalStackLayout
+        BackgroundColor="#FFFFFF"
+        MinimumHeightRequest="350"
+        MinimumWidthRequest="350">
+        <HorizontalStackLayout Padding="0,20" HorizontalOptions="Center">
+            <Label Text="Alert form device : " TextColor="#14274E" />
+            <Label x:Name="deviceId" TextColor="#14274E" />
+        </HorizontalStackLayout>
+        <Grid
+            Padding="25,35"
+            ColumnDefinitions="auto,*"
+            ColumnSpacing="7"
+            RowDefinitions="*,*,*"
+            RowSpacing="15">
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                HorizontalOptions="Start"
+                Text="IsResolved:"
+                TextColor="#14274E"
+                VerticalOptions="Center" />
+            <Border
+                Grid.Row="0"
+                Grid.Column="1"
+                BackgroundColor="Transparent"
+                HeightRequest="40"
+                Stroke="Transparent">
+                <CheckBox
+                    x:Name="IsResolveCheckBox"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    Color="#14274E" />
+            </Border>
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                HorizontalOptions="Start"
+                Text="Alert Reason:"
+                TextColor="#14274E"
+                VerticalOptions="Center" />
+            <Border
+                Grid.Row="1"
+                Grid.Column="1"
+                HeightRequest="90"
+                Stroke="#14274E"
+                StrokeShape="RoundRectangle 5"
+                StrokeThickness="1.5">
+                <Editor
+                    x:Name="PopupAlertReason"
+                    AutoSize="TextChanges"
+                    HeightRequest="90" />
+            </Border>
+            <Button
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="0,55,0,0"
+                Clicked="SaveButton_Clicked"
+                Text="Save"
+                WidthRequest="90" />
+            <Button
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="0,55,0,0"
+                Clicked="CloseButton_Clicked"
+                HorizontalOptions="End"
+                Text="Close"
+                WidthRequest="90" />
+        </Grid>
+    </VerticalStackLayout>
+</mct:Popup>

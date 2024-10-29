@@ -1,0 +1,61 @@
+﻿@page "/login"
+@* @using BlazorApp1.Authentication
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Diagnostics
+@inject ILoginService loginService
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navManager
+@inject IJSRuntime jsRuntime
+
+<PageTitle>Login</PageTitle>
+<div class="row">
+    <div class="col-md-4 d-flex justify-content-center  mt-5">
+        <EditForm Model="@LoginObj" FormName="loginForm" OnValidSubmit="HandleSubmit" Enhance>
+            <DataAnnotationsValidator />
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <InputText id="email" @bind-Value="LoginObj!.Email" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <InputText type="password"id="password" @bind-Value="LoginObj.Password" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Login? LoginObj { get; set; }  = new Login
+        {
+            Email = string.Empty,
+            Password = string.Empty
+        };
+
+
+
+    private async Task HandleSubmit()
+    {
+        try
+        {
+            var response = await loginService.Login(LoginObj!);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var userSession = response.Value;
+                var customAuthProvider = (CustomAuthenticationStateProvider)authStateProvider;
+                await customAuthProvider.UpdateAuthenticationState(userSession);
+            }
+            else
+            {
+                await jsRuntime.InvokeVoidAsync("alert", "Invalid");
+                return;
+            }
+        }
+        catch(Exception e)
+        {
+            Debug.WriteLine("");
+        }
+
+    }
+} *@
